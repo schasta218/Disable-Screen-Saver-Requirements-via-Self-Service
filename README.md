@@ -55,3 +55,5 @@ computer to lock once it activates is deployed to the targeted computers.
     * Creates a Launch Daemon on the user’s computer that runs /usr/local/jamf/bin/isrunning.sh every 10 seconds
 5. isrunning.sh checks to see if PowerPoint or Keynote is running. If they aren’t, it runs jamf policy -trigger reenablescreensaver, which runs the Re-Enable Screensaver policy
 6. The Re-Enable Screensaver policy takes the computer out of the ExcludeScreenSaver group, which removes the configuration profile.
+## More Information
+For more information on how these scripts work, look at the scripts themselves. Each one is heavily commented to explain exactly what is happening.
