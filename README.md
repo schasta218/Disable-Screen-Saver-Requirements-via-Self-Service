@@ -1,4 +1,4 @@
-# Disable-Screen-Saver-Requirements-via-Self-Service
+# Disable Screen Saver Requirements via Self Service
 ## Purpose of Workflow
 This workflow is meant for companies that want the enhanced security settings that Jamf | Pro can give them, while empowering their users to be able to disable those settings when needed for their jobs. 
 ## What the workflow does
@@ -42,3 +42,16 @@ This workflow has several steps to setting everything up.
 * Trigger: Custom: reenablescreensaver (its important to use this exact name, as its called to in the script
 * Frequency: Ongoing
 
+That’s it! Now enroll a computer into the JSS, and test the workflow out by going into Self Service and clicking the module. The screen saver should be turned off while Keynote and PowerPoint are running.
+## Behind The Scenes
+So what’s actually happening when a user pushes the button? Quite a number of things, actually. Here’s what happens, step by step:
+
+1. The configuration profile which forces computers to have a screen saver on and the
+computer to lock once it activates is deployed to the targeted computers.
+2. User pushes the button in Self Service
+3. The package you created places isrunning.sh into /usr/local/jamf/bin/
+4. DisableScreenSaver.sh runs, doing the following
+    * Grabs the serial number of the computer the user is on and adds it to the ExcludeScreenSaver group.
+    * Creates a Launch Daemon on the user’s computer that runs /usr/local/jamf/bin/isrunning.sh every 10 seconds
+5. isrunning.sh checks to see if PowerPoint or Keynote is running. If they aren’t, it runs jamf policy -trigger reenablescreensaver, which runs the Re-Enable Screensaver policy
+6. The Re-Enable Screensaver policy takes the computer out of the ExcludeScreenSaver group, which removes the configuration profile.
