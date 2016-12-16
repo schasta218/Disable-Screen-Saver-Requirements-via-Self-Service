@@ -57,3 +57,6 @@ computer to lock once it activates is deployed to the targeted computers.
 6. The Re-Enable Screensaver policy takes the computer out of the ExcludeScreenSaver group, which removes the configuration profile.
 ## More Information
 For more information on how these scripts work, look at the scripts themselves. Each one is heavily commented to explain exactly what is happening.
+
+## Future Implementations
+* Wrapping everything into a package that will automatically upload the scripts and create the workflow using the API. 
